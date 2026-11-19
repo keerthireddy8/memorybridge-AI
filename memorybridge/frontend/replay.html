@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Replay — MemoryBridge AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    /* Specific styling for Replay Canvas & Visual Path */
+    .replay-stage {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      background: #0f172a;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid #334155;
+    }
+
+    #replay-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .replay-overlay-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      color: #e2e8f0;
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .replay-current-step-box {
+      margin-top: 1.25rem;
+      background: white;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-badge-large {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #e0e7ff;
+      color: #3730a3;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link active">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill online"><span class="pulse-dot"></span> Replay Engine Ready</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <div class="card-header" style="border: none; margin-bottom: 1rem; padding-bottom: 0;">
+      <div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">
+          Visual Memory Replay
+        </h2>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          Explainable Spatio-Temporal Event Trajectory with Strict Privacy Boundary Halting.
+        </p>
+      </div>
+
+      <button class="demo-btn" style="background: var(--primary); color: white;" onclick="startReplay()">
+        ▶ Play Memory
+      </button>
+    </div>
+
+    <!-- Replay Layout Grid -->
+    <div class="replay-layout">
+
+      <!-- Left Column: Interactive Animated Canvas Stage -->
+      <section>
+        <div class="replay-stage">
+          <canvas id="replay-canvas"></canvas>
+          <div class="replay-overlay-badge">
+            <span class="pulse-dot" style="background:#10b981;"></span>
+            <span id="replay-canvas-status">Visual Replay: Ready</span>
+          </div>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="replay-controls">
+          <button id="btn-replay-prev" class="control-btn" title="Previous Event" onclick="prevStep()">⏮</button>
+          <button id="btn-replay-play" class="control-btn btn-play" title="Play / Pause" onclick="togglePlayPause()">▶</button>
+          <button id="btn-replay-next" class="control-btn" title="Next Event" onclick="nextStep()">⏭</button>
+          <button class="control-btn" title="Restart from Beginning" onclick="restartReplay()">↻</button>
+          
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 1rem;">
+            <label for="replay-speed" style="font-size: 0.85rem; font-weight: 600; color: #475569;">Speed:</label>
+            <select id="replay-speed" class="speed-select" onchange="changeSpeed(this.value)">
+              <option value="0.5">0.5x</option>
+              <option value="1" selected>1.0x</option>
+              <option value="2">2.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Timeline Scrubber -->
+        <div class="scrubber-wrap">
+          <input 
+            type="range" 
+            id="replay-scrubber" 
+            class="scrubber-slider" 
+            min="0" 
+            max="3" 
+            value="0" 
+            step="1"
+            oninput="scrubStep(parseInt(this.value))"
+          />
+        </div>
+
+        <!-- Step Detail Box -->
+        <div id="step-detail-card" class="replay-current-step-box">
+          <span id="step-counter-badge" class="step-badge-large">Step 1 of 4</span>
+          <h3 id="step-time-title" style="font-size: 1.15rem; font-weight: 700; color: #0f172a;">
+            2:10 PM — Picked up keys in Living Room
+          </h3>
+          <p id="step-description-text" style="color: #475569; margin-top: 0.35rem; font-size: 0.95rem;">
+            Resident Eleanor Vance picked up house keys from the coffee table.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <span id="step-status-tag" class="card-badge badge-verified">VERIFIED</span>
+            <span id="step-zone-tag" class="card-badge badge-activity">Public Activity Zone</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Step-by-Step Causal Memory Ledger -->
+      <section>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🧠</span> Causal Event Chain
+            </h3>
+            <span class="card-badge badge-verified">Explainable AI</span>
+          </div>
+
+          <div id="replay-chain-list" class="timeline-list">
+            <!-- Dynamic steps -->
+          </div>
+
+          <div style="margin-top: 1.5rem; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: var(--radius-sm); padding: 1rem;">
+            <h4 style="color: #6b21a8; font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+              <span>🔒</span> The Memory Boundary Principle
+            </h4>
+            <p style="color: #581c87; font-size: 0.82rem; margin-top: 0.35rem; line-height: 1.45;">
+              Notice that the replay halts exactly at the Bedroom threshold. The system confirms transit into the room, but strictly disengages cameras inside private quarters. It will never fabricate where the keys landed inside.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/replay.js"></script>
+</body>
+</html>

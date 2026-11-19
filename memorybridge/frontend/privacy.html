@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Center — MemoryBridge AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link active">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill privacy"><span class="pulse-dot"></span> Privacy Firewall Enforced</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <div class="card-header" style="border: none; margin-bottom: 1rem; padding-bottom: 0;">
+      <div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">
+          Privacy Architecture & Zone Firewall
+        </h2>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          “Memory without surveillance.” Balancing ambient independence with absolute spatial dignity.
+        </p>
+      </div>
+    </div>
+
+    <!-- Privacy Manifesto Hero Card -->
+    <div class="card" style="background: linear-gradient(135deg, #312e81, #4f46e5); color: white; margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700;">
+            CORE PHILOSOPHY
+          </span>
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-top: 0.5rem;">
+            “MemoryBridge should remember enough to help — but never remember everything.”
+          </h3>
+          <p style="color: #c7d2fe; font-size: 0.95rem; margin-top: 0.35rem; max-width: 760px;">
+            Unlike invasive surveillance cameras that record private moments indiscriminately, MemoryBridge transforms transient light patterns into discrete, privacy-masked spatio-temporal facts. Private zones completely halt visual streaming.
+          </p>
+        </div>
+        <div style="font-size: 3.5rem;">
+          🛡️
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Zone Status Grid -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span>🏛️</span> Active Home Zones & Sensor Permissions
+        </h3>
+        <span class="card-badge badge-activity">Hardware-Level Firewall</span>
+      </div>
+
+      <div id="privacy-zones-grid" class="privacy-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Data Minimization Policy Card -->
+    <div class="dashboard-grid" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>📜</span> Data Protection Guarantees
+          </h3>
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; color: #334155; font-size: 0.95rem;">
+          <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+            <span style="color: #10b981; font-weight: 700;">✓</span>
+            <div>
+              <strong>Edge-First Processing:</strong> Ambient frames are converted into structured relational events immediately and discarded. No continuous video archives are retained.
+            </div>
+          </li>
+          <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+            <span style="color: #10b981; font-weight: 700;">✓</span>
+            <div>
+              <strong>Strict Private Zone Blinding:</strong> When a resident enters bedrooms or bathrooms, cameras disengage. Only safe boundary crossing times are logged.
+            </div>
+          </li>
+          <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+            <span style="color: #10b981; font-weight: 700;">✓</span>
+            <div>
+              <strong>Zero Guessing / Anti-Hallucination:</strong> If an object was not observed entering a room, the AI will explicitly state "I don't have a verified recent observation."
+            </div>
+          </li>
+          <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+            <span style="color: #10b981; font-weight: 700;">✓</span>
+            <div>
+              <strong>Dignified Caregiver Visibility:</strong> Caregivers only receive contextual digests and alerts—not invasive minute-by-minute tracking.
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Real-time Boundary Test Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>⚡</span> Test Boundary Firewall
+          </h3>
+        </div>
+        <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 1rem;">
+          Simulate a resident transit into the Bedroom to witness the instant privacy shield engagement.
+        </p>
+        <button class="demo-btn" style="background: var(--privacy-purple); color: white; width: 100%; justify-content: center; padding: 0.75rem;" onclick="triggerPrivacyTest()">
+          🔒 Trigger Bedroom Privacy Boundary Transit
+        </button>
+        <div id="privacy-test-output" style="margin-top: 1rem; padding: 0.75rem; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: var(--radius-sm); font-size: 0.85rem; color: #475569;">
+          Boundary status: Standing by...
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/privacy.js"></script>
+</body>
+</html>

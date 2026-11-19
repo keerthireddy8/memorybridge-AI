@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caregiver View — MemoryBridge AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link active">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill online"><span class="pulse-dot"></span> Caregiver Digest Synced</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <div class="card-header" style="border: none; margin-bottom: 1rem; padding-bottom: 0;">
+      <div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">
+          Family & Caregiver Digest
+        </h2>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          Quiet reassurance. A high-level overview of daily anchor events without invasive surveillance.
+        </p>
+      </div>
+
+      <div style="font-size: 0.88rem; color: #475569; font-weight: 600;">
+        Resident: <strong style="color: var(--primary);">Eleanor Vance</strong> (User 01)
+      </div>
+    </div>
+
+    <!-- Metric Cards Grid -->
+    <div class="caregiver-metrics">
+      <div class="metric-card">
+        <div class="metric-title">💊 Morning Medicine Anchor</div>
+        <div id="care-med-status" class="metric-value" style="color: #059669; font-size: 1.2rem;">
+          Recorded (9:00 AM)
+        </div>
+        <span style="font-size: 0.75rem; color: #64748b;">Container interaction confirmed</span>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">📅 Daily Routine Status</div>
+        <div id="care-routine-status" class="metric-value" style="font-size: 1.2rem;">
+          Evaluating...
+        </div>
+        <span id="care-routine-sub" style="font-size: 0.75rem; color: #64748b;">Baseline comparison</span>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">🛡️ Privacy Boundary State</div>
+        <div class="metric-value" style="color: #7c3aed; font-size: 1.2rem;">
+          100% Enforced
+        </div>
+        <span style="font-size: 0.75rem; color: #64748b;">Zero raw video streaming</span>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">🔑 Essential Objects</div>
+        <div id="care-objects-status" class="metric-value" style="font-size: 1.2rem; color: #1e293b;">
+          Keys Confirmed
+        </div>
+        <span style="font-size: 0.75rem; color: #64748b;">Last observed: Bedroom entry</span>
+      </div>
+    </div>
+
+    <!-- Routine Deviation Alert (Dynamic) -->
+    <div id="care-deviation-banner" class="anchor-banner" style="display: none; background: #fffbeb; border-color: #fcd34d; border-left: 5px solid #f59e0b;">
+      <div class="anchor-icon" style="color: #d97706;">⚠️</div>
+      <div class="anchor-content">
+        <h4 style="color: #b45309;">Notice: Observed Activity Differs from Baseline</h4>
+        <p id="care-deviation-text" style="color: #92400e; font-size: 0.9rem;">
+          A repetitive transit sequence was detected this morning between the Bedroom and Hallway.
+        </p>
+        <small style="color: #64748b;">Contextual note: This informs you of wandering patterns without clinical alarmism.</small>
+      </div>
+    </div>
+
+    <!-- Filtered Memory Digest Timeline -->
+    <div class="card" style="margin-top: 1.5rem;">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span>📜</span> Today's Important Memory Ledger
+        </h3>
+        <span class="card-badge badge-activity">Anchor Events Only</span>
+      </div>
+
+      <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 1rem;">
+        Caregivers do not need to sift through thousands of minor camera frames. MemoryBridge summarizes only meaningful spatio-temporal transitions:
+      </p>
+
+      <div id="care-timeline-list" class="timeline-list">
+        <div style="text-align: center; color: #94a3b8; padding: 2rem;">Loading daily memory summary...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/caregiver.js"></script>
+</body>
+</html>

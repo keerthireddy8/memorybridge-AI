@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MemoryBridge AI — An External Memory for Independent Living</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link active">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill online"><span class="pulse-dot"></span> System Active</span>
+      <span id="nav-privacy-status" class="status-pill privacy">🔒 Privacy Firewall ON</span>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- Hackathon Demo Script Toolbar -->
+    <section class="demo-strip">
+      <div class="demo-strip-title">
+        <span style="font-size: 1.25rem;">⚡</span>
+        <div>
+          <h3>Live Hackathon Demo Flow</h3>
+          <span>One-click deterministic presentation scenario</span>
+        </div>
+      </div>
+      <div class="demo-buttons">
+        <button class="demo-btn" onclick="triggerDemoStep('key_pickup')">1. Pick up Keys</button>
+        <button class="demo-btn" onclick="triggerDemoStep('key_bedroom_move')">2. Move to Bedroom</button>
+        <button class="demo-btn" onclick="triggerDemoStep('ask_keys')">3. "Where are my keys?"</button>
+        <button class="demo-btn" onclick="window.location.href='/replay'">4. Replay Memory ▶</button>
+        <button class="demo-btn" onclick="triggerDemoStep('routine_deviation')">5. Routine Deviation ⚠️</button>
+        <button class="demo-btn" onclick="triggerDemoStep('medicine_interaction')">💊 Medicine Anchor</button>
+        <button class="demo-btn btn-reset" onclick="triggerDemoStep('reset')">↻ Reset All</button>
+      </div>
+    </section>
+
+    <!-- Contextual Anchor Proactive Notice (Pillar 3) -->
+    <div id="anchor-banner" class="anchor-banner" style="display: none;">
+      <div class="anchor-icon">⚓</div>
+      <div class="anchor-content">
+        <h4 id="anchor-title">Contextual Anchor: Medicine Interaction</h4>
+        <p id="anchor-message">Loading anchor status...</p>
+        <small id="anchor-disclaimer">MemoryBridge logs physical container interactions. Medical ingestion is not verified.</small>
+      </div>
+    </div>
+
+    <!-- Dashboard Main Grid -->
+    <div class="dashboard-grid">
+
+      <!-- Left Column: Live Home & Ask Memory -->
+      <section class="left-col">
+
+        <!-- Live Home Floorplan Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span>🏡</span> Live Home Spatial Observation
+            </h2>
+            <span class="card-badge badge-activity">Spatio-Temporal Tracking</span>
+          </div>
+
+          <!-- 2D Floorplan Grid -->
+          <div class="floorplan-container">
+            <div class="floorplan-grid">
+              
+              <!-- Zone 1: Living Room -->
+              <div id="zone-living-room" class="room-zone">
+                <div class="room-header">
+                  <span class="room-name">🛋️ Living Room</span>
+                  <span class="room-badge badge-activity">Activity Zone</span>
+                </div>
+                <div class="room-interior">
+                  <div id="avatar-resident" class="entity-avatar">
+                    <span>👤</span> Eleanor
+                  </div>
+                  <div id="marker-keys" class="entity-item">
+                    <span>🔑</span> Keys
+                  </div>
+                  <div id="marker-glasses" class="entity-item">
+                    <span>👓</span> Glasses
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 2: Kitchen -->
+              <div id="zone-kitchen" class="room-zone">
+                <div class="room-header">
+                  <span class="room-name">🍳 Kitchen</span>
+                  <span class="room-badge badge-activity">Activity Zone</span>
+                </div>
+                <div class="room-interior">
+                  <div id="marker-medicine" class="entity-item">
+                    <span>💊</span> Medicine
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 3: Dining Area & Hallway -->
+              <div id="zone-dining" class="room-zone">
+                <div class="room-header">
+                  <span class="room-name">🪑 Dining & Hallway</span>
+                  <span class="room-badge badge-activity">Activity Zone</span>
+                </div>
+                <div class="room-interior">
+                  <div id="marker-wallet" class="entity-item">
+                    <span>👛</span> Wallet
+                  </div>
+                </div>
+              </div>
+
+              <!-- Zone 4: Bedroom (Private Zone) -->
+              <div id="zone-bedroom" class="room-zone private-active">
+                <div class="room-header">
+                  <span class="room-name">🛏️ Bedroom</span>
+                  <span class="room-badge badge-private">Private Zone</span>
+                </div>
+                <div class="room-interior">
+                  <div id="bedroom-interior-content">
+                    <span style="font-size: 0.82rem; color: #7e22ce; font-weight: 600;">
+                      🛡️ Visual Sensors Disengaged
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 4: Ask Memory Interface -->
+        <div class="card ask-memory-section">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span>💬</span> Ask MemoryBridge Anything
+            </h2>
+            <span class="card-badge badge-verified">Grounded Memory Retrieval</span>
+          </div>
+
+          <form id="ask-memory-form" onsubmit="handleAskMemory(event)">
+            <div class="search-input-wrap">
+              <input 
+                type="text" 
+                id="ask-query-input" 
+                class="ask-input" 
+                placeholder="Where are my keys? What did I do this morning?" 
+                autocomplete="off"
+              />
+              <button 
+                type="button" 
+                id="voice-mic-btn" 
+                class="voice-btn" 
+                title="Speak question aloud"
+                onclick="toggleVoiceInput()"
+              >
+                🎤
+              </button>
+              <button type="submit" class="submit-btn">
+                <span>Recall</span> ↵
+              </button>
+            </div>
+          </form>
+
+          <!-- Prompt Chips -->
+          <div class="query-chips">
+            <button class="chip" onclick="setQueryAndSubmit('Where are my keys?')">🔑 Where are my keys?</button>
+            <button class="chip" onclick="setQueryAndSubmit('What did I do this morning?')">🌅 What did I do this morning?</button>
+            <button class="chip" onclick="setQueryAndSubmit('Where did I keep my glasses?')">👓 Where are my glasses?</button>
+            <button class="chip" onclick="setQueryAndSubmit('Did I interact with my medicine today?')">💊 Check medicine interaction</button>
+            <button class="chip" onclick="setQueryAndSubmit('Where is my wallet?')">👛 Where is my wallet?</button>
+          </div>
+
+          <!-- Answer Card -->
+          <div id="answer-box" class="memory-answer-card" style="display: none;">
+            <div class="answer-header">
+              <div class="answer-badges">
+                <span id="answer-status-badge" class="badge-verified">VERIFIED</span>
+                <span id="answer-confidence-badge" class="badge-activity">95% Confidence</span>
+              </div>
+              <button id="answer-speak-btn" class="speak-btn" onclick="readAnswerAloud()">
+                <span>🔊</span> Listen
+              </button>
+            </div>
+            <div id="answer-text" class="answer-body">
+              "Your keys were last confirmed entering the bedroom at 2:15 PM."
+            </div>
+            <div id="answer-explanation" class="answer-explanation">
+              Grounding: Verified ambient observation at privacy boundary threshold.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Live Event Timeline -->
+      <section class="right-col">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span>⏱️</span> Verified Event Timeline
+            </h2>
+            <button class="demo-btn" style="color: var(--text-muted); background: #f1f5f9; border: 1px solid #cbd5e1;" onclick="loadEvents()">
+              ↻ Refresh
+            </button>
+          </div>
+
+          <div id="timeline-list" class="timeline-list">
+            <!-- Rendered dynamically -->
+            <div style="text-align: center; color: #94a3b8; padding: 2rem;">
+              Connecting to event stream...
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

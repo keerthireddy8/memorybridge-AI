@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Vision Observation — MemoryBridge AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link active">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill online"><span class="pulse-dot"></span> OpenCV Vision Pipe Live</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <div class="card-header" style="border: none; margin-bottom: 1rem; padding-bottom: 0;">
+      <div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">
+          Pillar 1: Ambient Visual Observation & Masking
+        </h2>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          Real-time object detection stream with automatic hardware privacy firewall shielding.
+        </p>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <!-- Camera Feed Frame -->
+      <section class="card" style="padding: 1rem;">
+        <div style="background: black; border-radius: var(--radius-md); overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 400px; position: relative;">
+          <img 
+            id="camera-mjpeg" 
+            src="/api/vision/stream" 
+            alt="Live OpenCV Vision Stream" 
+            style="width: 100%; height: auto; max-height: 480px; object-fit: contain;"
+          />
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding: 0 0.5rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span class="pulse-dot" style="background:#10b981;"></span>
+            <span id="cam-status-label" style="font-size: 0.88rem; font-weight: 700; color: #1e293b;">Sensor Active: Living Room</span>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="demo-btn" style="background: var(--privacy-purple); color: white;" onclick="togglePrivacyShield()">
+              🔒 Toggle Privacy Shield
+            </button>
+            <button class="demo-btn" style="background: var(--primary); color: white;" onclick="logVisionObservation()">
+              📸 Log Detection Event
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision Engine Architecture Details -->
+      <section class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>🔬</span> Computer Vision Capabilities
+          </h3>
+          <span class="card-badge badge-activity">YOLO / OpenCV</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #1e293b; margin-bottom: 0.25rem;">
+              Targeted Selective Detection
+            </h4>
+            <p style="color: #64748b; font-size: 0.85rem; line-height: 1.45;">
+              To protect privacy and reduce processing load, MemoryBridge detects <strong>only selected vital items</strong>:
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;">
+              <span class="card-badge badge-activity">🔑 Keys</span>
+              <span class="card-badge badge-activity">👓 Spectacles</span>
+              <span class="card-badge badge-activity">👛 Wallet</span>
+              <span class="card-badge badge-activity">💊 Medicine Container</span>
+              <span class="card-badge badge-activity">👤 Person</span>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #f1f5f9; padding-top: 0.85rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #1e293b; margin-bottom: 0.25rem;">
+              Privacy Firewall Mechanics
+            </h4>
+            <p style="color: #64748b; font-size: 0.85rem; line-height: 1.45;">
+              When the resident traverses into a Private Zone (e.g. Bedroom or Bathroom), the OpenCV engine dynamically blurs and overrides the visual buffer with the <strong>Privacy Shield</strong>. Video data is never written to disk or streamed unmasked.
+            </p>
+          </div>
+
+          <div style="border-top: 1px solid #f1f5f9; padding-top: 0.85rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: #1e293b; margin-bottom: 0.25rem;">
+              Event Extraction Pipeline
+            </h4>
+            <p style="color: #64748b; font-size: 0.85rem; line-height: 1.45;">
+              <code>Visual Bounding Box → Spatio-Temporal Event Formatter → SQLite Memory Graph → Grounded Recall Engine</code>
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script>
+    let privacyActive = false;
+
+    async function togglePrivacyShield() {
+      privacyActive = !privacyActive;
+      try {
+        await API.togglePrivacyZone("loc_bedroom", privacyActive ? 1 : 0);
+        showToast(`Privacy Shield ${privacyActive ? 'ACTIVATED (Visual masked)' : 'DEACTIVATED'}`);
+        document.getElementById("cam-status-label").innerText = privacyActive ? "🔒 Shield Active: Private Zone" : "Sensor Active: Living Room";
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function logVisionObservation() {
+      showToast("Logging visual observation event...");
+      try {
+        const res = await API.runDemoSimulation("key_pickup");
+        showToast(res.message, "success");
+      } catch (e) {
+        showToast("Error: " + e.message, "danger");
+      }
+    }
+  </script>
+</body>
+</html>

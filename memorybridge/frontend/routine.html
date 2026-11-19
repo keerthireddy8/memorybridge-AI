@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Routine — MemoryBridge AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon">🧠</div>
+      <div class="brand-info">
+        <h1>MemoryBridge AI</h1>
+        <p>The environment remembers, so they don’t have to.</p>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">🏠 Live Home</a></li>
+      <li><a href="/replay" class="nav-link">▶ Replay Memory</a></li>
+      <li><a href="/routine" class="nav-link active">📅 My Routine</a></li>
+      <li><a href="/privacy" class="nav-link">🔒 Privacy Center</a></li>
+      <li><a href="/caregiver" class="nav-link">👥 Caregiver View</a></li>
+      <li><a href="/camera" class="nav-link">👁️ Live Vision</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <span class="status-pill online"><span class="pulse-dot"></span> Pattern Analyzer Online</span>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-content">
+
+    <div class="card-header" style="border: none; margin-bottom: 1rem; padding-bottom: 0;">
+      <div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1e293b;">
+          Routine Baseline & Deviation Monitor
+        </h2>
+        <p style="color: #64748b; font-size: 0.95rem;">
+          Pillar 5 (Notice): Non-diagnostic contextual awareness comparing daily activity with historical baseline.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="demo-btn" style="background: #10b981; color: white;" onclick="triggerRoutineSim('routine_normal')">
+          ✓ Simulate Normal Routine
+        </button>
+        <button class="demo-btn" style="background: #f59e0b; color: white;" onclick="triggerRoutineSim('routine_deviation')">
+          ⚠️ Simulate Routine Deviation
+        </button>
+      </div>
+    </div>
+
+    <!-- Deviation Alert Banner (Dynamic) -->
+    <div id="routine-alert-box" class="anchor-banner" style="display: none; background: #fffbeb; border-color: #fcd34d; border-left: 5px solid #f59e0b;">
+      <div class="anchor-icon" style="color: #d97706;">⚠️</div>
+      <div class="anchor-content">
+        <h4 id="routine-alert-title" style="color: #b45309; font-size: 1.05rem;">
+          Significant Routine Deviation Detected
+        </h4>
+        <p id="routine-alert-msg" style="color: #92400e; font-size: 0.92rem; font-weight: 500;">
+          Observed activity differs significantly from the recent baseline.
+        </p>
+        <ul id="routine-diff-points" style="margin-top: 0.5rem; margin-left: 1.25rem; font-size: 0.85rem; color: #78350f;">
+          <!-- Points -->
+        </ul>
+        <small style="color: #64748b; margin-top: 0.5rem;">
+          Note: This alert provides ambient context for caregivers. It is not an automated medical diagnostic evaluation.
+        </small>
+      </div>
+    </div>
+
+    <!-- Side-by-Side Sequence Comparison -->
+    <div class="routine-comparison">
+
+      <!-- Typical Baseline Column -->
+      <div class="routine-col">
+        <div class="routine-col-title">
+          <span>📋</span> Typical Morning Baseline
+        </div>
+        <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1rem;">
+          Established multi-week spatio-temporal pattern for Eleanor Vance.
+        </p>
+        <div id="baseline-steps-list">
+          <div style="text-align: center; color: #94a3b8; padding: 1.5rem;">Loading baseline...</div>
+        </div>
+      </div>
+
+      <!-- Today's Activity Column -->
+      <div class="routine-col">
+        <div class="routine-col-title">
+          <span>📍</span> Today's Observed Activity
+        </div>
+        <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 1rem;">
+          Chronological spatio-temporal transit observations recorded today.
+        </p>
+        <div id="today-steps-list">
+          <div style="text-align: center; color: #94a3b8; padding: 1.5rem;">Loading today's observations...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Architectural Explainability Card -->
+    <div class="card" style="margin-top: 1.5rem;">
+      <h3 style="font-size: 1.05rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 0.5rem;">
+        <span>💡</span> How MemoryBridge Analyzes Deviations Without Diagnosis
+      </h3>
+      <p style="color: #475569; font-size: 0.9rem; margin-top: 0.5rem; line-height: 1.55;">
+        Traditional health tech attempts complex biometric and psychological diagnoses which risk false alarms and anxiety. MemoryBridge operates strictly on <strong>spatial sequence invariants</strong>: detecting repetitive oscillating transits (such as wandering between rooms repeatedly) or omission of primary morning anchor locations (such as the kitchen). The alerts inform families or caregivers naturally and calmly.
+      </p>
+    </div>
+
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/routine.js"></script>
+</body>
+</html>
